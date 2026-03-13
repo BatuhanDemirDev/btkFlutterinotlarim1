@@ -70,8 +70,8 @@ class _FormElemanlariSayfasiState extends State<FormElemanlariSayfasi> {
           // --- SLIDER ---
           const _Baslik(metin: "4. Slider (Değer Aralığı)"),
           Text("Seçilen Değer: ${_sliderValue.toInt()}", 
-               textAlign: TextAlign.center, 
-               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          textAlign: TextAlign.center, 
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           Slider(
             value: _sliderValue,
             min: 0,

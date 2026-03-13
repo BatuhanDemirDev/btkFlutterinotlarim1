@@ -1,5 +1,6 @@
-import 'package:btkakademi/101/globalkeywsayac.dart';
+import 'package:btkakademi/101/localization_tarih_saat.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 void main() {
@@ -11,9 +12,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp(localizationsDelegates: const [
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+  ],
+  supportedLocales: const [
+    Locale('tr', 'TR'),
+    Locale('en', 'US'),
+  ],
       debugShowCheckedModeBanner: false,
-      home: Sayacuygulamasi(),
+      darkTheme: ThemeData.dark(),
+      home:  (DateTimeKullanimi()),
     );
   }
 }
