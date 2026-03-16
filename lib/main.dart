@@ -1,4 +1,4 @@
-import 'package:btkakademi/101/localization_tarih_saat.dart';
+import 'package:btkakademi/navigator/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   ],
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark(),
-      home:  (DateTimeKullanimi()),
+      home:  (HomePage()),
     );
   }
 }
