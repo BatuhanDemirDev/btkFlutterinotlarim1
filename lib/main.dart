@@ -1,4 +1,4 @@
-import 'package:btkakademi/navigator/navigator.dart';
+import 'package:btkakademi/approutes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -12,7 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(localizationsDelegates: const [
+    return MaterialApp(
+      title: 'Flutter Navigator Demo',
+      routes: AppRoutes.routes,
+      
+      initialRoute: AppRoutes.home,
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
+      localizationsDelegates: const [
     GlobalMaterialLocalizations.delegate,
     GlobalWidgetsLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -23,7 +29,6 @@ class MyApp extends StatelessWidget {
   ],
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark(),
-      home:  (HomePage()),
     );
   }
 }

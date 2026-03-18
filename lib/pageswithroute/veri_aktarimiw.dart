@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class VeriAktarimi extends StatelessWidget {
-  List<Ogrenciler> tumOgrenciler =List.generate(50, (index) => Ogrenciler(isim: "Öğrenci $index", yas: 20 + index, sehir: "Şehir $index"));
+final List<Ogrenciler> tumOgrenciler =List.generate(50, (index) => Ogrenciler(isim: "Öğrenci $index", yas: 20 + index, sehir: "Şehir $index"));
 VeriAktarimi({super.key});
 
   @override
@@ -30,8 +30,8 @@ VeriAktarimi({super.key});
   }
 }
 
-class _TekOgrenciDetay extends StatelessWidget {
-  const _TekOgrenciDetay();
+class _tekOgrenciDetay extends StatelessWidget {
+  const _tekOgrenciDetay();
 
   @override
   Widget build(BuildContext context) {

@@ -1,12 +1,11 @@
-import 'package:btkakademi/approutes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:btkakademi/navigator/Pages/basic_nav.dart';
-import 'package:btkakademi/navigator/Pages/veri_aktarimi.dart';
+import 'package:btkakademi/pageswithroute/basic_navw.dart';
+import 'package:btkakademi/pageswithroute/veri_aktarimiw.dart';
 import 'package:flutter/services.dart';
-import 'navigator_result.dart';
+import 'navigator_resultw.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePagew extends StatelessWidget {
+  const HomePagew({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,6 @@ class HomePage extends StatelessWidget {
       return;
     }
 
-    // Diyaloğu gösteriyoruz
     final bool cikilsinmi = await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
@@ -53,17 +51,17 @@ class HomePage extends StatelessWidget {
             children: [
               _buildNavigationButton("Temel Navigasyon", "Push ve Pop Kullanımı",onPressed: () {
                 debugPrint("Temel Navigasyon Butonuna Tıklandı");
-                Navigator.pushNamed(context, AppRoutes.temel_navigation,arguments: {'id':1,'isim':'Batuhan', });
+                Navigator.push(context, MaterialPageRoute(builder: (context) => BasicNavigation()));
               }),
               _buildNavigationButton("Isimlendirilmiş Rotalar", "Named Routes Kullanımı",onPressed: () {
                 debugPrint("Isimlendirilmiş Rotalar Butonuna Tıklandı");
               }),
               _buildNavigationButton("Veri Aktarımı", "Sayfalar Arası Veri Gönderme",onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.veri_aktarimi);
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => VeriAktarimi()));
                 debugPrint("Veri Aktarımı Butonuna Tıklandı");
               }),
               _buildNavigationButton("Geri Dönüş Değeri", "Sayfadan Veri Alma",onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.return_with_pop);
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => NavigationResultDemo()));
                 debugPrint("Geri Dönüş Değeri Butonuna Tıklandı");
               }),
             ],

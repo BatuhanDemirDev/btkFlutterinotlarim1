@@ -24,21 +24,21 @@ final _sayacKey = GlobalKey<SayacwidgetState>();
                   onPressed: () {
                     _sayacKey.currentState?.sayacArttir();
                   },
-                  child: const Text('Sayaç Arttır'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                     foregroundColor: Colors.white,
                   ),
+                  child: const Text('Sayaç Arttır'),
               ),
               SizedBox(width: 20),
               ElevatedButton(onPressed: (){
               _sayacKey.currentState?.sayacAzalt();
-              }, 
-              child: const Text('Sayaç Azalt'),
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
                 foregroundColor: Colors.white,
-              )
+              ), 
+              child: const Text('Sayaç Azalt')
             ),
           ],
         ), ]
