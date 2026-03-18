@@ -49,6 +49,7 @@ class _FormElemanlariSayfasiState extends State<FormElemanlariSayfasi> {
 
           // --- RADIO LIST TILE ---
           const _Baslik(metin: "3. RadioListTile (Tekli Seçim)"),
+          // ignore: deprecated_member_use
           RadioListTile<int>(
             title: const Text("Seçenek A"),
             value: 1,
@@ -57,6 +58,7 @@ class _FormElemanlariSayfasiState extends State<FormElemanlariSayfasi> {
               setState(() => _radioValue = value);
             },
           ),
+          // ignore: deprecated_member_use
           RadioListTile<int>(
             title: const Text("Seçenek B"),
             value: 2,

@@ -22,8 +22,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       setState(() {
         maxLines = _emailFocusNode.hasFocus ? 3 : 1;
       });
-      
-    },);
+    });
     _emailController = TextEditingController(text: 'ilk değer');
     _emailController.addListener(() {
       setState(() {
@@ -35,6 +34,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   void dispose() {
     _emailController.dispose();
+    _emailFocusNode.dispose();
     super.dispose();
   }
 
@@ -64,8 +64,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 cursorColor: Colors.red,
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor:
-                      UtilityColor.primaryColor.withOpacity(0.1),
+                  fillColor: UtilityColor.primaryColor.withAlpha((255 * 0.1).round()),
                   prefixIcon: const Icon(Icons.account_circle),
                   suffixIcon: const Icon(Icons.check),
                   labelText: 'deneme',
@@ -134,21 +133,23 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      autofocus: autofocus,
-      maxLength: 10,
-      maxLines: 2,
-      cursorColor: Colors.red,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor:
-            UtilityColor.primaryColor.withOpacity(0.1),
-        prefixIcon: Icon(icon),
-        suffixIcon: const Icon(Icons.check),
-        labelText: labelText,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.0),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: TextField(
+        autofocus: autofocus,
+        maxLength: 10,
+        maxLines: 2,
+        cursorColor: Colors.red,
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: UtilityColor.primaryColor.withAlpha((255 * 0.1).round()),
+          prefixIcon: Icon(icon),
+          suffixIcon: const Icon(Icons.check),
+          labelText: labelText,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(24.0),
+          ),
         ),
       ),
     );
@@ -163,12 +164,8 @@ class UtilityColor {
 
 class MyPadding {
   static const EdgeInsets allPadding = EdgeInsets.all(16.0);
-  static const EdgeInsets symmetricPadding =
-      EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0);
-  static const EdgeInsets horizontalPadding =
-      EdgeInsets.symmetric(horizontal: 16.0);
-  static const EdgeInsets verticalPadding =
-      EdgeInsets.symmetric(vertical: 16.0);
-  static const EdgeInsets customPaddingPNG =
-      EdgeInsets.only(top: 48);
+  static const EdgeInsets symmetricPadding = EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0);
+  static const EdgeInsets horizontalPadding = EdgeInsets.symmetric(horizontal: 16.0);
+  static const EdgeInsets verticalPadding = EdgeInsets.symmetric(vertical: 16.0);
+  static const EdgeInsets customPaddingPNG = EdgeInsets.only(top: 48);
 }

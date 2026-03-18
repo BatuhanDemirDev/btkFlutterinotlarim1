@@ -1,26 +1,35 @@
 import 'package:flutter/material.dart';
 
 class VeriAktarimi extends StatelessWidget {
-final List<Ogrenciler> tumOgrenciler =List.generate(50, (index) => Ogrenciler(isim: "Öğrenci $index", yas: 20 + index, sehir: "Şehir $index"));
-VeriAktarimi({super.key});
+  static final List<Ogrenciler> _tumOgrenciler = List.generate(50, (index) => Ogrenciler(
+    isim: "Öğrenci $index", 
+    yas: 20 + index, 
+    sehir: "Şehir $index"
+  ));
+
+  const VeriAktarimi({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Veri Aktarımı")),
+      appBar: AppBar(title: const Text("Veri Aktarımı")),
       body: ListView.builder(
-        itemCount: tumOgrenciler.length,
+        itemCount: _tumOgrenciler.length,
         itemBuilder: (context, index) {
-          final secilenKisi = tumOgrenciler[index];
+          final secilenKisi = _tumOgrenciler[index];
           return Card(
             child: ListTile(
               title: Text(secilenKisi.isim),
               subtitle: Text("Şehir: ${secilenKisi.sehir}"),
-              trailing: Icon(Icons. arrow_right), leading: CircleAvatar(
-              child: Text(secilenKisi.yas.toString()),
-            ), 
+              leading: CircleAvatar(
+                child: Text(secilenKisi.yas.toString()),
+              ),
+              trailing: const Icon(Icons.arrow_right),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => OgrenciDetay(ogrenci: secilenKisi)));
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => OgrenciDetay(ogrenci: secilenKisi))
+                );
               },
             ),
           );
@@ -30,34 +39,16 @@ VeriAktarimi({super.key});
   }
 }
 
-class _tekOgrenciDetay extends StatelessWidget {
-  const _tekOgrenciDetay();
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(onPressed: () {
-          final ogrBatuhan = Ogrenciler(isim: "Batuhan", yas: 25, sehir: "Ankara");
-          Navigator.push(context, MaterialPageRoute(builder: (context) => OgrenciDetay(ogrenci: ogrBatuhan)));
-        }, child: Text("Detaylar Sayfasına git ")),
-    ],
-          ),
-    );
-  }
-}
-
 class Ogrenciler {
-  String isim;
-  int yas;
-  String sehir;
+  final String isim;
+  final int yas;
+  final String sehir;
 
-  Ogrenciler
-  ({required this.isim,
+  const Ogrenciler({
+    required this.isim,
     required this.yas,
-    required this.sehir});
+    required this.sehir,
+  });
 }
 
 class OgrenciDetay extends StatelessWidget {
@@ -67,17 +58,13 @@ class OgrenciDetay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Öğrenci Detayları"),
-        
-      ),
-      // Tüm Text'leri bir Column içine alıyoruz
+      appBar: AppBar(title: const Text("Öğrenci Detayları")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Öğrenci Detayları Gösterilecek", style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 20), // Aralarda boşluk bırakmak iyidir
+            const Text("Öğrenci Detayları", style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 20),
             Text("Öğrenci Adı: ${ogrenci.isim}"),
             Text("Öğrenci Yaşı: ${ogrenci.yas}"),
             Text("Öğrenci Şehri: ${ogrenci.sehir}"),

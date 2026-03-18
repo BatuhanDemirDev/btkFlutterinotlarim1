@@ -1,9 +1,6 @@
 import 'package:btkakademi/approutes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:btkakademi/navigator/Pages/basic_nav.dart';
-import 'package:btkakademi/navigator/Pages/veri_aktarimi.dart';
 import 'package:flutter/services.dart';
-import 'navigator_result.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,59 +8,50 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-  canPop: false, // Sistemin sayfayı otomatik kapatmasını engelliyoruz
-  onPopInvokedWithResult: (didPop, result) async {
-    // Eğer sayfa zaten kapatıldıysa (başka bir yerden pop edildiyse) bir şey yapma
-    if (didPop) {
-      return;
-    }
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
 
-    // Diyaloğu gösteriyoruz
-    final bool cikilsinmi = await showDialog<bool>(
+        final bool? cikilsinmi = await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
             title: const Text("Çıkış"),
             content: const Text("Çıkmak istediğinize emin misiniz?"),
             actions: [
               TextButton(
-                onPressed: () => Navigator.of(context).pop(false), 
+                onPressed: () => Navigator.of(context).pop(false),
                 child: const Text("Hayır"),
               ),
               TextButton(
-                onPressed: () => Navigator.of(context).pop(true), 
+                onPressed: () => Navigator.of(context).pop(true),
                 child: const Text("Evet"),
               ),
             ],
           ),
-        ) ?? false; // Eğer boşluğa tıklayıp kapatırsa 'false' kabul et
-
-    // Eğer kullanıcı 'Evet' dediyse, sayfayı manuel olarak kapatıyoruz
-    if (cikilsinmi && context.mounted) {
-       // canPop: false olduğu için sistemi kandırıp manuel pop yapmalıyız
-       // Ancak HomePage genelde ana sayfa olduğu için 'pop' yapmak uygulamayı 
-       // arka plana atar veya kapatır.
-        await SystemNavigator.pop(); 
-    }
-  },
+        );
+        if (cikilsinmi == true && context.mounted) {
+          await SystemNavigator.pop();
+        }
+      },
       child: Scaffold(
-        appBar: AppBar(title: Text("Navigator Kullanımı")),
+        appBar: AppBar(title: const Text("Navigator Kullanımı")),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: ListView(
             children: [
-              _buildNavigationButton("Temel Navigasyon", "Push ve Pop Kullanımı",onPressed: () {
+              _buildNavigationButton("Temel Navigasyon", "Push ve Pop Kullanımı", onPressed: () {
                 debugPrint("Temel Navigasyon Butonuna Tıklandı");
-                Navigator.pushNamed(context, AppRoutes.temel_navigation,arguments: {'id':1,'isim':'Batuhan', });
+                Navigator.pushNamed(context, AppRoutes.basicNavigation, arguments: {'id': 1, 'isim': 'Batuhan'});
               }),
-              _buildNavigationButton("Isimlendirilmiş Rotalar", "Named Routes Kullanımı",onPressed: () {
+              _buildNavigationButton("Isimlendirilmiş Rotalar", "Named Routes Kullanımı", onPressed: () {
                 debugPrint("Isimlendirilmiş Rotalar Butonuna Tıklandı");
               }),
-              _buildNavigationButton("Veri Aktarımı", "Sayfalar Arası Veri Gönderme",onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.veri_aktarimi);
+              _buildNavigationButton("Veri Aktarımı", "Sayfalar Arası Veri Gönderme", onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.dataTransfer);
                 debugPrint("Veri Aktarımı Butonuna Tıklandı");
               }),
-              _buildNavigationButton("Geri Dönüş Değeri", "Sayfadan Veri Alma",onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.return_with_pop);
+              _buildNavigationButton("Geri Dönüş Değeri", "Sayfadan Veri Alma", onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.returnWithPop);
                 debugPrint("Geri Dönüş Değeri Butonuna Tıklandı");
               }),
             ],
@@ -73,12 +61,12 @@ class HomePage extends StatelessWidget {
     );
   }
   
-  Widget _buildNavigationButton(String myTitle, String mySubtitle ,{required VoidCallback onPressed}) {
+  Widget _buildNavigationButton(String myTitle, String mySubtitle, {required VoidCallback onPressed}) {
     return Card(
       child: ListTile(
         title: Text(myTitle),
         subtitle: Text(mySubtitle),
-        trailing: Icon(Icons.arrow_forward_ios),
+        trailing: const Icon(Icons.arrow_forward_ios),
         onTap: onPressed,
       ),
     );

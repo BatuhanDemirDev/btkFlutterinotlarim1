@@ -5,27 +5,43 @@ class BasicNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments as Map;
+    final args = ModalRoute.of(context)?.settings.arguments as Map? ?? {'id': 'N/A', 'isim': 'N/A'};
     return Scaffold(
-      appBar: AppBar(title: Text("Temel Navigasyon")),
+      appBar: AppBar(
+        title: const Text("Temel Navigasyon"),
+        automaticallyImplyLeading: false,
+      ),
       body: Center(
-      child: Column(children: [
-        Text(args['id'].toString()),
-        Text(args['isim'].toString()),
-          ElevatedButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Ayarlar()));
-          }, child: Text("Ayarlar Sayfasına Git ")),
-          ElevatedButton(onPressed: () {
-            debugPrint("Push Kullanıldı");
-            Navigator.pop(context, MaterialPageRoute(builder: (context) => BasicNavigation()));
-          }, child: Text("Geri Dön ")),
-      ],
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('ID: ${args['id'].toString()}'),
+            Text('İsim: ${args['isim'].toString()}'),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => const Ayarlar())
+                );
+              }, 
+              child: const Text("Ayarlar Sayfasına Git")
             ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                debugPrint("Geri dönülüyor");
+                Navigator.pop(context);
+              }, 
+              child: const Text("Geri Dön")
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
 
 class Ayarlar extends StatelessWidget {
   const Ayarlar({super.key});
@@ -33,17 +49,24 @@ class Ayarlar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Ayarlar Sayfası "), 
-      automaticallyImplyActions: false,
+      appBar: AppBar(
+        title: const Text("Ayarlar Sayfası"),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
-      child: Column(children: [
-          ElevatedButton(onPressed: () {
-            debugPrint("Push Kullanıldı");
-            Navigator.pop(context, MaterialPageRoute(builder: (context) => BasicNavigation()));
-          }, child: Text("Geri Dön ")),
-      ],
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                debugPrint("Ayarlardan geri dönülüyor");
+                Navigator.pop(context);
+              }, 
+              child: const Text("Geri Dön")
             ),
+          ],
+        ),
       ),
     );
   }

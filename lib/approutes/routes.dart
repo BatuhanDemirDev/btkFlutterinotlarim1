@@ -6,17 +6,14 @@ import 'package:btkakademi/pageswithroute/navigatorw.dart';
 
 class AppRoutes {
   static const String home = '/';
-  static const String temel_navigation = '/basic';
-  static const String return_with_pop = '/return';
-  static const String veri_aktarimi = '/veri_aktarimi';
+  static const String basicNavigation = '/basicNavigation';
+  static const String returnWithPop = '/returnWithPop';
+  static const String dataTransfer = '/dataTransfer';
   
-
-  static Map<String, Widget Function(BuildContext)> get routes =>{
-  home: (context) => const HomePagew(),
-  temel_navigation:(context) => const BasicNavigation(),
-  return_with_pop:(context) => const  NavigationResultDemo(),
-  veri_aktarimi:(context) =>  VeriAktarimi(),
-
-
-};
+  static Map<String, Widget Function(BuildContext)> get routes => {
+    home: (context) => const HomePagew(),
+    basicNavigation: (context) => const BasicNavigation(),
+    returnWithPop: (context) => const NavigationResultDemo(),
+    dataTransfer: (context) => VeriAktarimi(),
+  };
 }
