@@ -1,8 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:btk_kelime_app/screens/add_word_screen.dart';
 import 'package:btk_kelime_app/screens/word_list_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:isar/isar.dart'; 
-import 'package:btk_kelime_app/models/word.dart';
 import 'package:btk_kelime_app/sevices/isar_service.dart';
 
 void main() async {
@@ -54,7 +53,9 @@ class _MainPageState extends State<MainPage> {
   List<Widget> getScreens (){
     return [
     WordList(isarService: widget.isarService,),
-    const Center(child: Text('Kelime Ekle Formu')),
+    const Center(
+      child: AddWordScreen(),
+    ),
   ]; 
   } 
 

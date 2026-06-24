@@ -80,14 +80,46 @@ class _WordListState extends State<WordList> {
       itemCount: data.length,
       itemBuilder: (context, index) {
         var oankiKelime = data[index];
-        return ListTile(
-          title: Text(oankiKelime.englishWord),
-          subtitle: Text(oankiKelime.turkishWord),
-          leading: Chip(label: Text(oankiKelime.wordType)),
-          trailing: Switch(
-            value: oankiKelime.isLearned,
-            // Burada fonksiyonu düzgünce çağırdık (Bölüm 6.6)
-            onChanged: (value) => _toggleUpdateWord(oankiKelime),
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                ListTile(
+                  title: Text(oankiKelime.englishWord),
+                  subtitle: Text(oankiKelime.turkishWord),
+                  leading: Chip(label: Text(oankiKelime.wordType)),
+                  trailing: Switch(
+                    value: oankiKelime.isLearned,
+                    // Burada fonksiyonu düzgünce çağırdık (Bölüm 6.6)
+                    onChanged: (value) => _toggleUpdateWord(oankiKelime),
+                  ),
+                ),
+                if (oankiKelime.story != null && oankiKelime.story!.isNotEmpty)
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.6),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Row(children: [
+                      Icon(Icons.lightbulb_outline),
+                      SizedBox(width: 8),
+                      Text('Hatırlatıcı not'),
+                      SizedBox(height: 4),
+                    ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(oankiKelime.story ?? 'Hatırlatıcı not yok', style: TextStyle(fontStyle: FontStyle.italic, color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.8)),),
+                    ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         );
       },
