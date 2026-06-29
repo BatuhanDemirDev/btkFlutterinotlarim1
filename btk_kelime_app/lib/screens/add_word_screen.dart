@@ -1,9 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+// Kendi projenizdeki doğru IsarService ve Word modeli import yollarını kontrol edin:
+import 'package:btk_kelime_app/sevices/isar_service.dart';
+import 'package:btk_kelime_app/models/word.dart';
 
 class AddWordScreen extends StatefulWidget {
-  const AddWordScreen({super.key});
+  final IsarService isarService;
+  const AddWordScreen({super.key , required this.isarService});
 
   @override
   State<AddWordScreen> createState() => _AddWordScreenState();
@@ -39,6 +43,52 @@ class _AddWordScreenState extends State<AddWordScreen> {
       // Kullanıcı resim seçmeden geri döndü
     }
   }
+Future <void> _saveWord() async {
+  if (_formKey.currentState!.validate()) {
+
+    String englishWord = _englishController.text;
+    String turkishMeaning = _turkishController.text;
+    String story = _storyController.text;
+    String wordType = _SelectedWordType;
+    bool isLearned = _isLearned;
+    File? imageFile = _selectedImage;
+
+    debugPrint('Kelime: $englishWord');
+
+    try {
+      // DÜZELTME: Parantez doğru şekilde kapatıldı ve Isar modeline isLearned parametresi de gönderildi
+      await widget.isarService.saveWord(
+        Word(
+          englishWord: englishWord,
+          turkishWord: turkishMeaning,
+          wordType: wordType,
+          story: story.isNotEmpty ? story : null,
+          imagesBytes: imageFile != null ? await imageFile.readAsBytes() : null,
+          // Eğer Word modelinde isLearned alanı varsa onu da buraya eklemelisin:
+          // isLearned: isLearned, 
+        ),
+      ); // Word parantezi ve saveWord parantezi burada kapandı.
+
+      // Başarılı bildirim mesajı ve Formu Temizleme
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Kelime başarıyla kaydedildi!')),
+        );
+        
+        _englishController.clear();
+        _turkishController.clear();
+        _storyController.clear();
+        setState(() {
+          _selectedImage = null;
+          _isLearned = false;
+        });
+      }
+
+    } catch (e) {
+      debugPrint("Veritabanına kaydederken hata oluştu: $e");
+    }
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +99,12 @@ class _AddWordScreenState extends State<AddWordScreen> {
         child: ListView(
           children: [
             TextFormField(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Lütfen İngilizce kelimeyi girin';
+                }
+                return null;
+              },
               controller: _englishController,
               decoration: const InputDecoration(
                 labelText: 'İngilizce Kelime',
@@ -57,6 +113,12 @@ class _AddWordScreenState extends State<AddWordScreen> {
             ),
             const SizedBox(height: 16),
             TextFormField(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Lütfen Türkçe anlamını girin';
+                }
+                return null;
+              },
               controller: _turkishController,
               decoration: const InputDecoration(
                 labelText: 'Türkçe Anlamı',
@@ -91,11 +153,7 @@ class _AddWordScreenState extends State<AddWordScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Kaydetme işlemi burada yapılacak
-              },
-              child: const Text('Kelimeyi Kaydet'),
+            ElevatedButton( child: const Text('Kelimeyi Kaydet'), onPressed: _saveWord,
             ),
             SwitchListTile(
               title: const Text('Öğrenildi Olarak İşaretle'),
@@ -107,9 +165,7 @@ class _AddWordScreenState extends State<AddWordScreen> {
               },
             ),
             ElevatedButton.icon(
-              onPressed: () {
-                // Resim ekleme işlemi burada yapılacak
-              },
+              onPressed: _resimSec,
               icon: const Icon(Icons.image),
               label: const Text('Resim Ekle'),
             ),
@@ -118,6 +174,7 @@ class _AddWordScreenState extends State<AddWordScreen> {
               Image.file(
                 _selectedImage!,
                 height: 200,
+                fit: BoxFit.cover,
               ),
           ],
         ),

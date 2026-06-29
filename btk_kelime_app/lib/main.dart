@@ -50,14 +50,14 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   // Ekran listesi
   //final List<Widget> _screens = [];
-  List<Widget> getScreens (){
+  List<Widget> getScreens() {
     return [
-    WordList(isarService: widget.isarService,),
-    const Center(
-      child: AddWordScreen(),
-    ),
-  ]; 
-  } 
+      WordList(isarService: widget.isarService),
+      Center(
+        child: AddWordScreen(isarService: widget.isarService), // Burada IsarService'i geçiyoruz
+      ),
+    ];
+  }
 
 
   int _selectedScreen = 0;

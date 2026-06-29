@@ -99,7 +99,7 @@ class _WordListState extends State<WordList> {
                 Container(
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.6),
+                    color: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.6),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
@@ -113,7 +113,7 @@ class _WordListState extends State<WordList> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(oankiKelime.story ?? 'Hatırlatıcı not yok', style: TextStyle(fontStyle: FontStyle.italic, color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.8)),),
+                      child: Text(oankiKelime.story ?? 'Hatırlatıcı not yok', style: TextStyle(fontStyle: FontStyle.italic, color: Theme.of(context).colorScheme.onSecondaryContainer.withValues(alpha: 0.8)),),
                     ),
                     ],
                   ),
